@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from 'react'
+import React, { createRef, ReactNode, useCallback, useEffect } from 'react'
 import { Arrow, Container, Item, Items, ITransitionProps, Root, Thumbnail, Thumbnails } from './components'
 
 interface ICarouselItem {
@@ -23,12 +23,18 @@ interface ICarouselProps {
 }
 
 export function Carousel({ items, selected, setSelected, infinite, transition, arrows }: ICarouselProps) {
+  const refs = items.map(() => createRef<HTMLDivElement>())
+
   const onChange = useCallback(
     (selected: number) => {
       setSelected(getSelected(selected, 0, items.length - 1, infinite))
     },
     [items, setSelected, infinite]
   )
+
+  useEffect(() => {
+    refs[selected]?.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+  }, [refs, selected])
 
   return (
     <Root>
@@ -48,7 +54,7 @@ export function Carousel({ items, selected, setSelected, infinite, transition, a
       {hasThumbnails(items) && (
         <Thumbnails>
           {items.map((item, i) => (
-            <Thumbnail key={i} onClick={() => onChange(i)}>
+            <Thumbnail key={i} ref={refs[i]} onClick={() => onChange(i)}>
               {item.thumb}
             </Thumbnail>
           ))}

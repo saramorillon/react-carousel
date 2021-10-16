@@ -74,4 +74,19 @@ describe('Carousel', () => {
     fireEvent.click(screen.getByText('Tutu thumb'))
     expect(setSelected).toHaveBeenCalledWith(1)
   })
+
+  it('should scroll to thumbnail when changing selected', () => {
+    const items = [
+      { item: <>Toto</>, thumb: <>Toto thumb</> },
+      { item: <>Tutu</>, thumb: <>Tutu thumb</> },
+    ]
+    const setSelected = jest.fn()
+    render(<Carousel items={items} selected={0} setSelected={setSelected} />)
+    fireEvent.click(screen.getByText('Tutu thumb'))
+    expect(screen.getByText('Tutu thumb').scrollIntoView).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'nearest',
+    })
+  })
 })
