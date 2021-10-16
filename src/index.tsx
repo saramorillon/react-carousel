@@ -1,5 +1,5 @@
-import React, { Dispatch, ReactNode, SetStateAction, useCallback } from 'react'
-import { ArrowLeft, ArrowRight, Container, Item, Items, ITransitionProps, Root, Thumbnails } from './components'
+import React, { ReactNode, useCallback } from 'react'
+import { Arrow, Container, Item, Items, ITransitionProps, Root, Thumbnails } from './components'
 
 interface ICarouselItem {
   item: ReactNode
@@ -16,33 +16,34 @@ export type CarouselArrow = ({ onClick }: { onClick: () => void }) => JSX.Elemen
 interface ICarouselProps {
   items: CarouselItems
   selected: number
-  setSelected: Dispatch<SetStateAction<number>>
+  setSelected: (selected: number) => void
   infinite?: boolean
   transition?: ITransitionProps
-  arrows?: { left?: CarouselArrow; right?: CarouselArrow }
+  arrows?: { left?: ReactNode; right?: ReactNode }
 }
 
 export function Carousel({ items, selected, setSelected, infinite, transition, arrows }: ICarouselProps) {
   const onChange = useCallback(
     (offset: number) => {
-      setSelected((selected) => getSelected(selected + offset, 0, items.length - 1, infinite))
+      setSelected(getSelected(selected + offset, 0, items.length - 1, infinite))
     },
-    [items, setSelected]
+    [items, selected, setSelected, infinite]
   )
-
-  const LeftArrow = arrows?.left || ArrowLeft
-  const RightArrow = arrows?.right || ArrowRight
 
   return (
     <Root>
       <Container>
-        <LeftArrow onClick={() => onChange(-1)} />
+        <Arrow left={0} onClick={() => onChange(-1)}>
+          {arrows?.left || '◀'}
+        </Arrow>
         <Items length={items.length} selected={selected} transition={transition}>
           {items.map((item, i) => (
             <Item key={i}>{item.item}</Item>
           ))}
         </Items>
-        <RightArrow onClick={() => onChange(1)} />
+        <Arrow right={0} onClick={() => onChange(1)}>
+          {arrows?.right || '▶'}
+        </Arrow>
       </Container>
       {hasThumbnails(items) && (
         <Thumbnails>

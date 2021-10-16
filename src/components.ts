@@ -1,5 +1,4 @@
 import { Property } from 'csstype'
-import React from 'react'
 import styled from 'styled-components'
 
 export const Root = styled.div({
@@ -10,7 +9,7 @@ export const Container = styled.div({
   position: 'relative',
 })
 
-const Arrow = styled.div(
+export const Arrow = styled.div(
   {
     position: 'absolute',
     top: 0,
@@ -31,22 +30,6 @@ const Arrow = styled.div(
   },
   ({ left, right }: { left?: Property.Left; right?: Property.Right }) => ({ left, right })
 )
-
-export function ArrowLeft({ onClick }: { onClick: () => void }): JSX.Element {
-  return (
-    <Arrow left={0} onClick={onClick}>
-      &#9664;
-    </Arrow>
-  )
-}
-
-export function ArrowRight({ onClick }: { onClick: () => void }): JSX.Element {
-  return (
-    <Arrow right={0} onClick={onClick}>
-      &#9654;
-    </Arrow>
-  )
-}
 
 export interface ITransitionProps {
   duration?: Property.TransitionDuration
