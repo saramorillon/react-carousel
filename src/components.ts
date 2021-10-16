@@ -56,4 +56,10 @@ export const Item = styled.div({
 
 export const Thumbnails = styled.div({
   display: 'flex',
+  overflow: 'auto',
+})
+
+export const Thumbnail = styled.div({
+  cursor: 'pointer',
+  margin: '0 1rem',
 })

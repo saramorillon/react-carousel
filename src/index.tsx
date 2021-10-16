@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback } from 'react'
-import { Arrow, Container, Item, Items, ITransitionProps, Root, Thumbnails } from './components'
+import { Arrow, Container, Item, Items, ITransitionProps, Root, Thumbnail, Thumbnails } from './components'
 
 interface ICarouselItem {
   item: ReactNode
@@ -24,16 +24,16 @@ interface ICarouselProps {
 
 export function Carousel({ items, selected, setSelected, infinite, transition, arrows }: ICarouselProps) {
   const onChange = useCallback(
-    (offset: number) => {
-      setSelected(getSelected(selected + offset, 0, items.length - 1, infinite))
+    (selected: number) => {
+      setSelected(getSelected(selected, 0, items.length - 1, infinite))
     },
-    [items, selected, setSelected, infinite]
+    [items, setSelected, infinite]
   )
 
   return (
     <Root>
       <Container>
-        <Arrow left={0} onClick={() => onChange(-1)}>
+        <Arrow left={0} onClick={() => onChange(selected - 1)}>
           {arrows?.left || '◀'}
         </Arrow>
         <Items length={items.length} selected={selected} transition={transition}>
@@ -41,16 +41,16 @@ export function Carousel({ items, selected, setSelected, infinite, transition, a
             <Item key={i}>{item.item}</Item>
           ))}
         </Items>
-        <Arrow right={0} onClick={() => onChange(1)}>
+        <Arrow right={0} onClick={() => onChange(selected + 1)}>
           {arrows?.right || '▶'}
         </Arrow>
       </Container>
       {hasThumbnails(items) && (
         <Thumbnails>
           {items.map((item, i) => (
-            <div key={i} onClick={() => onChange(i)}>
+            <Thumbnail key={i} onClick={() => onChange(i)}>
               {item.thumb}
-            </div>
+            </Thumbnail>
           ))}
         </Thumbnails>
       )}
