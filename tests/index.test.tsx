@@ -75,6 +75,16 @@ describe('Carousel', () => {
     expect(setSelected).toHaveBeenCalledWith(1)
   })
 
+  it('should not scroll to thumbnail on render', () => {
+    const items = [
+      { item: <>Toto</>, thumb: <>Toto thumb</> },
+      { item: <>Tutu</>, thumb: <>Tutu thumb</> },
+    ]
+    const setSelected = jest.fn()
+    render(<Carousel items={items} selected={0} setSelected={setSelected} />)
+    expect(HTMLDivElement.prototype.scrollIntoView).not.toHaveBeenCalled()
+  })
+
   it('should scroll to thumbnail when changing selected', () => {
     const items = [
       { item: <>Toto</>, thumb: <>Toto thumb</> },

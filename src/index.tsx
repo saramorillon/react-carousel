@@ -1,12 +1,16 @@
-import React, { createRef, ReactNode, useCallback, useEffect } from 'react'
+import React, { createRef, ReactNode, useCallback, useEffect, useState } from 'react'
 import './index.css'
 
 interface ICarouselItem {
   item: ReactNode
 }
 
+export interface IThumbnailProps {
+  selected: boolean
+}
+
 interface ICarouselItemWithThumb extends ICarouselItem {
-  thumb: ReactNode
+  thumb: ({ selected }: IThumbnailProps) => JSX.Element
 }
 
 export type CarouselItems = ICarouselItem[] | ICarouselItemWithThumb[]
@@ -23,17 +27,21 @@ interface ICarouselProps {
 
 export function Carousel({ items, selected, setSelected, infinite, arrows }: ICarouselProps): JSX.Element {
   const refs = items.map(() => createRef<HTMLDivElement>())
+  const [canScroll, setCanScroll] = useState(false)
 
   const onChange = useCallback(
     (selected: number) => {
       setSelected(getSelected(selected, 0, items.length - 1, infinite))
+      setCanScroll(true)
     },
     [items, setSelected, infinite]
   )
 
   useEffect(() => {
-    refs[selected]?.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
-  }, [refs, selected])
+    if (canScroll) {
+      refs[selected]?.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+    }
+  }, [refs, canScroll, selected])
 
   return (
     <div className="rc-root">
@@ -62,7 +70,7 @@ export function Carousel({ items, selected, setSelected, infinite, arrows }: ICa
         <div className="rc-thumbnails">
           {items.map((item, i) => (
             <div className="rc-thumbnail" key={i} ref={refs[i]} onClick={() => onChange(i)}>
-              {item.thumb}
+              {item.thumb({ selected: selected === i })}
             </div>
           ))}
         </div>
