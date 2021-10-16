@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "settings": {
+        "react": {
+          "version": "detect"
+        }
+      },
+      "parser": "@typescript-eslint/parser",
+      "extends": ["plugin:@typescript-eslint/recommended", "plugin:react/recommended"]
+    },
+    {
+      "files": ["*.test.tsx"],
+      "extends": ["plugin:jest/recommended", "plugin:jest-dom/recommended", "plugin:testing-library/react"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
