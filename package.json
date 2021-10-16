@@ -14,7 +14,7 @@
     "clean": "rm -rf dist",
     "prebuild": "yarn clean",
     "build": "tsc -p tsconfig.build.json",
-    "build:watch": "yarn build --watch",
+    "postbuild": "cp src/index.css dist/index.css",
     "prepare": "yarn build",
     "postpublish": "yarn clean",
     "test": "jest",
