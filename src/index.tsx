@@ -21,7 +21,7 @@ interface ICarouselProps {
   arrows?: { left?: ReactNode; right?: ReactNode }
 }
 
-export function Carousel({ items, selected, setSelected, infinite, arrows }: ICarouselProps) {
+export function Carousel({ items, selected, setSelected, infinite, arrows }: ICarouselProps): JSX.Element {
   const refs = items.map(() => createRef<HTMLDivElement>())
 
   const onChange = useCallback(
@@ -43,7 +43,10 @@ export function Carousel({ items, selected, setSelected, infinite, arrows }: ICa
         </div>
         <div
           className="rc-items"
-          style={{ width: `calc(100% * ${length})`, transform: `translateX(-${(selected / length) * 100}%)` }}
+          style={{
+            width: `calc(100% * ${items.length})`,
+            transform: `translateX(-${(selected / items.length) * 100}%)`,
+          }}
         >
           {items.map((item, i) => (
             <div className="rc-item" key={i}>
@@ -56,9 +59,9 @@ export function Carousel({ items, selected, setSelected, infinite, arrows }: ICa
         </div>
       </div>
       {hasThumbnails(items) && (
-        <div className="thumbnails">
+        <div className="rc-thumbnails">
           {items.map((item, i) => (
-            <div className="thumbnail" key={i} ref={refs[i]} onClick={() => onChange(i)}>
+            <div className="rc-thumbnail" key={i} ref={refs[i]} onClick={() => onChange(i)}>
               {item.thumb}
             </div>
           ))}
