@@ -3,8 +3,9 @@
   "clearMocks": true,
   "resetMocks": true,
   "restoreMocks": true,
-  "modulePathIgnorePatterns": ["<rootDir>/dist/"],
+  "modulePathIgnorePatterns": ["dist"],
   "testEnvironment": "jsdom",
   "testMatch": ["<rootDir>/tests/**/*.test.ts*"],
-  "setupFilesAfterEnv": ["<rootDir>/tests/setup.ts"]
+  "setupFilesAfterEnv": ["<rootDir>/tests/setup.ts"],
+  "moduleNameMapper": { "\\.css$": "identity-obj-proxy" }
 }

@@ -1,0 +1,48 @@
+.rc-root {
+  overflow: hidden;
+}
+
+.rc-viewbox {
+  position: relative;
+}
+
+.rc-arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2rem;
+  opacity: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-out;
+  z-index: 2;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rc-arrow:hover {
+  opacity: 1;
+}
+
+.rc-items {
+  display: flex;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+
+.rc-item {
+  width: 100%;
+}
+
+.rc-thumbnails {
+  display: flex;
+  overflow: auto;
+}
+
+.rc-thumbnail {
+  cursor: pointer;
+  margin: 0 1rem;
+}

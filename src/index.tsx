@@ -1,5 +1,5 @@
 import React, { createRef, ReactNode, useCallback, useEffect } from 'react'
-import { Arrow, Container, Item, Items, ITransitionProps, Root, Thumbnail, Thumbnails } from './components'
+import './index.css'
 
 interface ICarouselItem {
   item: ReactNode
@@ -18,11 +18,10 @@ interface ICarouselProps {
   selected: number
   setSelected: (selected: number) => void
   infinite?: boolean
-  transition?: ITransitionProps
   arrows?: { left?: ReactNode; right?: ReactNode }
 }
 
-export function Carousel({ items, selected, setSelected, infinite, transition, arrows }: ICarouselProps) {
+export function Carousel({ items, selected, setSelected, infinite, arrows }: ICarouselProps) {
   const refs = items.map(() => createRef<HTMLDivElement>())
 
   const onChange = useCallback(
@@ -37,30 +36,35 @@ export function Carousel({ items, selected, setSelected, infinite, transition, a
   }, [refs, selected])
 
   return (
-    <Root>
-      <Container>
-        <Arrow left={0} onClick={() => onChange(selected - 1)}>
+    <div className="rc-root">
+      <div className="rc-viewbox">
+        <div className="rc-arrow" style={{ left: 0 }} onClick={() => onChange(selected - 1)}>
           {arrows?.left || '◀'}
-        </Arrow>
-        <Items length={items.length} selected={selected} transition={transition}>
+        </div>
+        <div
+          className="rc-items"
+          style={{ width: `calc(100% * ${length})`, transform: `translateX(-${(selected / length) * 100}%)` }}
+        >
           {items.map((item, i) => (
-            <Item key={i}>{item.item}</Item>
+            <div className="rc-item" key={i}>
+              {item.item}
+            </div>
           ))}
-        </Items>
-        <Arrow right={0} onClick={() => onChange(selected + 1)}>
+        </div>
+        <div className="rc-arrow" style={{ right: 0 }} onClick={() => onChange(selected + 1)}>
           {arrows?.right || '▶'}
-        </Arrow>
-      </Container>
+        </div>
+      </div>
       {hasThumbnails(items) && (
-        <Thumbnails>
+        <div className="thumbnails">
           {items.map((item, i) => (
-            <Thumbnail key={i} ref={refs[i]} onClick={() => onChange(i)}>
+            <div className="thumbnail" key={i} ref={refs[i]} onClick={() => onChange(i)}>
               {item.thumb}
-            </Thumbnail>
+            </div>
           ))}
-        </Thumbnails>
+        </div>
       )}
-    </Root>
+    </div>
   )
 }
 
