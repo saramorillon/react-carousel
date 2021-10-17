@@ -1,11 +1,11 @@
 .rc-root {
   overflow: hidden;
-  padding: 0.5rem;
 }
 
 .rc-viewbox {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.3);
+  margin: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .rc-arrow {
@@ -16,6 +16,7 @@
   opacity: 0;
   color: white;
   transition: all 0.3s ease-out;
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 2;
   cursor: pointer;
   display: flex;
@@ -33,7 +34,6 @@
   transition-property: all;
   transition-duration: 0.2s;
   transition-timing-function: ease-out;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .rc-item {
@@ -48,19 +48,10 @@
 
 .rc-thumbnail {
   cursor: pointer;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin: 0.5rem;
   user-select: none;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition: all 0.2s ease-out;
-}
-
-.rc-thumbnail:first-child {
-  margin-left: 0;
-}
-
-.rc-thumbnail:last-child {
-  margin-right: 0;
 }
 
 .rc-thumbnail:hover {
