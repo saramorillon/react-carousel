@@ -1,16 +1,16 @@
 import React, { createRef, ReactNode, useCallback, useEffect, useState } from 'react'
 import './index.css'
 
-interface ICarouselItem {
-  item: ReactNode
-}
-
-export interface IThumbnailProps {
+export interface IItemProps {
   selected: boolean
 }
 
+interface ICarouselItem {
+  item: ({ selected }: IItemProps) => JSX.Element
+}
+
 interface ICarouselItemWithThumb extends ICarouselItem {
-  thumb: ({ selected }: IThumbnailProps) => JSX.Element
+  thumb: ({ selected }: IItemProps) => JSX.Element
 }
 
 export type CarouselItems = ICarouselItem[] | ICarouselItemWithThumb[]
@@ -58,7 +58,7 @@ export function Carousel({ items, selected, setSelected, infinite, arrows }: ICa
         >
           {items.map((item, i) => (
             <div className="rc-item" key={i}>
-              {item.item}
+              {item.item({ selected: selected === i })}
             </div>
           ))}
         </div>
