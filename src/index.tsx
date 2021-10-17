@@ -62,7 +62,7 @@ export function Carousel({ items, selected, setSelected, infinite, arrows }: ICa
             </div>
           ))}
         </div>
-        <div className="rc-arrow" style={{ right: '0.5rem' }} onClick={() => onChange(selected + 1)}>
+        <div className="rc-arrow" style={{ right: '-0.5rem' }} onClick={() => onChange(selected + 1)}>
           {arrows?.right || '▶'}
         </div>
       </div>
