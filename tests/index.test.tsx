@@ -1,19 +1,19 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import React from 'react'
-import { Carousel } from '../src'
+import { Carousel, CarouselItems } from '../src'
 
 describe('Carousel', () => {
   it('should render each item', () => {
-    const items = [{ item: <>Toto</> }, { item: <>Tutu</> }]
+    const items: CarouselItems = [{ item: <>Toto</> }, { item: <>Tutu</> }]
     render(<Carousel items={items} selected={0} setSelected={jest.fn()} />)
     expect(screen.getByText('Toto')).toBeInTheDocument()
     expect(screen.getByText('Tutu')).toBeInTheDocument()
   })
 
   it('should render each thumbnail', () => {
-    const items = [
-      { item: <>Toto</>, thumb: <>Toto thumb</> },
-      { item: <>Tutu</>, thumb: <>Tutu thumb</> },
+    const items: CarouselItems = [
+      { item: <>Toto</>, thumb: () => <>Toto thumb</> },
+      { item: <>Tutu</>, thumb: () => <>Tutu thumb</> },
     ]
     render(<Carousel items={items} selected={0} setSelected={jest.fn()} />)
     expect(screen.getByText('Toto thumb')).toBeInTheDocument()
@@ -33,7 +33,7 @@ describe('Carousel', () => {
   })
 
   it('should select previous item when clicking on left arrow', () => {
-    const items = [{ item: <>Toto</> }, { item: <>Tutu</> }]
+    const items: CarouselItems = [{ item: <>Toto</> }, { item: <>Tutu</> }]
     const setSelected = jest.fn()
     render(<Carousel items={items} selected={1} setSelected={setSelected} />)
     fireEvent.click(screen.getByText('◀'))
@@ -41,7 +41,7 @@ describe('Carousel', () => {
   })
 
   it('should select previous item when clicking on custom left arrow', () => {
-    const items = [{ item: <>Toto</> }, { item: <>Tutu</> }]
+    const items: CarouselItems = [{ item: <>Toto</> }, { item: <>Tutu</> }]
     const setSelected = jest.fn()
     render(<Carousel items={items} selected={1} setSelected={setSelected} arrows={{ left: 'Left arrow' }} />)
     fireEvent.click(screen.getByText('Left arrow'))
@@ -49,7 +49,7 @@ describe('Carousel', () => {
   })
 
   it('should select next item when clicking on right arrow', () => {
-    const items = [{ item: <>Toto</> }, { item: <>Tutu</> }]
+    const items: CarouselItems = [{ item: <>Toto</> }, { item: <>Tutu</> }]
     const setSelected = jest.fn()
     render(<Carousel items={items} selected={0} setSelected={setSelected} />)
     fireEvent.click(screen.getByText('▶'))
@@ -57,7 +57,7 @@ describe('Carousel', () => {
   })
 
   it('should select next item when clicking on custom right arrow', () => {
-    const items = [{ item: <>Toto</> }, { item: <>Tutu</> }]
+    const items: CarouselItems = [{ item: <>Toto</> }, { item: <>Tutu</> }]
     const setSelected = jest.fn()
     render(<Carousel items={items} selected={0} setSelected={setSelected} arrows={{ right: 'Right arrow' }} />)
     fireEvent.click(screen.getByText('Right arrow'))
@@ -65,9 +65,9 @@ describe('Carousel', () => {
   })
 
   it('should select item when clicking on thumbnail', () => {
-    const items = [
-      { item: <>Toto</>, thumb: <>Toto thumb</> },
-      { item: <>Tutu</>, thumb: <>Tutu thumb</> },
+    const items: CarouselItems = [
+      { item: <>Toto</>, thumb: () => <>Toto thumb</> },
+      { item: <>Tutu</>, thumb: () => <>Tutu thumb</> },
     ]
     const setSelected = jest.fn()
     render(<Carousel items={items} selected={0} setSelected={setSelected} />)
@@ -76,9 +76,9 @@ describe('Carousel', () => {
   })
 
   it('should not scroll to thumbnail on render', () => {
-    const items = [
-      { item: <>Toto</>, thumb: <>Toto thumb</> },
-      { item: <>Tutu</>, thumb: <>Tutu thumb</> },
+    const items: CarouselItems = [
+      { item: <>Toto</>, thumb: () => <>Toto thumb</> },
+      { item: <>Tutu</>, thumb: () => <>Tutu thumb</> },
     ]
     const setSelected = jest.fn()
     render(<Carousel items={items} selected={0} setSelected={setSelected} />)
@@ -86,9 +86,9 @@ describe('Carousel', () => {
   })
 
   it('should scroll to thumbnail when changing selected', () => {
-    const items = [
-      { item: <>Toto</>, thumb: <>Toto thumb</> },
-      { item: <>Tutu</>, thumb: <>Tutu thumb</> },
+    const items: CarouselItems = [
+      { item: <>Toto</>, thumb: () => <>Toto thumb</> },
+      { item: <>Tutu</>, thumb: () => <>Tutu thumb</> },
     ]
     const setSelected = jest.fn()
     render(<Carousel items={items} selected={0} setSelected={setSelected} />)
