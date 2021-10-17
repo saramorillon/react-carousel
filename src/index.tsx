@@ -46,7 +46,7 @@ export function Carousel({ items, selected, setSelected, infinite, arrows }: ICa
   return (
     <div className="rc-root">
       <div className="rc-viewbox">
-        <div className="rc-arrow" style={{ left: '-0.5rem' }} onClick={() => onChange(selected - 1)}>
+        <div className="rc-arrow" style={{ left: 0 }} onClick={() => onChange(selected - 1)}>
           {arrows?.left || '◀'}
         </div>
         <div
@@ -62,7 +62,7 @@ export function Carousel({ items, selected, setSelected, infinite, arrows }: ICa
             </div>
           ))}
         </div>
-        <div className="rc-arrow" style={{ right: '-0.5rem' }} onClick={() => onChange(selected + 1)}>
+        <div className="rc-arrow" style={{ right: 0 }} onClick={() => onChange(selected + 1)}>
           {arrows?.right || '▶'}
         </div>
       </div>
